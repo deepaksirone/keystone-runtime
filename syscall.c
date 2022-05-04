@@ -208,7 +208,32 @@ void handle_syscall(struct encl_ctx* ctx)
     memset(rt_copy_buffer_1, 0x00, sizeof(rt_copy_buffer_1));
 
     break;
+  case (RUNTIME_SYSCALL_GET_RANDOM):
+    if (arg1 > sizeof(rt_copy_buffer_1)) {
+	  ret = -1;
+	  break;
+    }
 
+    uintptr_t num_sbi_calls = (arg1 / sizeof(uintptr_t)) + 1;
+    uintptr_t residue = arg1 % (sizeof(uintptr_t));
+
+    uintptr_t cur;
+    uintptr_t i = 0;
+    for (int i = 0; i < num_sbi_calls - 1; i++) {
+	cur = sbi_random();
+	memcpy(rt_copy_buffer_1 + i, &cur, sizeof(uintptr_t));
+	i += sizeof(uintptr_t);
+    }
+
+    cur = sbi_random();
+    memcpy(rt_copy_buffer_1 + i, &cur, residue);
+    
+    copy_to_user((void *)arg0, (void *)rt_copy_buffer_1, arg1);
+ 
+    memset(rt_copy_buffer_1, 0x00, sizeof(rt_copy_buffer_1));
+    break;
+
+	
 
 #ifdef LINUX_SYSCALL_WRAPPING
   case(SYS_clock_gettime):
