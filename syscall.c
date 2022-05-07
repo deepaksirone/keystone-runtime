@@ -218,16 +218,17 @@ void handle_syscall(struct encl_ctx* ctx)
     uintptr_t residue = arg1 % (sizeof(uintptr_t));
 
     uintptr_t cur;
-    uintptr_t i = 0;
+    uintptr_t j = 0;
     for (int i = 0; i < num_sbi_calls - 1; i++) {
 	cur = sbi_random();
-	memcpy(rt_copy_buffer_1 + i, &cur, sizeof(uintptr_t));
-	i += sizeof(uintptr_t);
+	memcpy(rt_copy_buffer_1 + j, &cur, sizeof(uintptr_t));
+	j += sizeof(uintptr_t);
     }
 
+    printf("[get_random] After loop\n");
     cur = sbi_random();
-    memcpy(rt_copy_buffer_1 + i, &cur, residue);
-    
+    memcpy(rt_copy_buffer_1 + j, &cur, residue);
+    printf("[get_random] Before user copy\n");
     copy_to_user((void *)arg0, (void *)rt_copy_buffer_1, arg1);
  
     memset(rt_copy_buffer_1, 0x00, sizeof(rt_copy_buffer_1));
