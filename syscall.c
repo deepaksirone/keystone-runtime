@@ -236,7 +236,7 @@ void handle_syscall(struct encl_ctx* ctx)
     break;
   case (RUNTIME_SYSCALL_GET_RANDOM_WORD):
     ret = sbi_random();
-    printf("[random_word] called\n");
+    //printf("[random_word] called\n");
     break;
 
 	
