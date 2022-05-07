@@ -232,6 +232,7 @@ void handle_syscall(struct encl_ctx* ctx)
     copy_to_user((void *)arg0, (void *)rt_copy_buffer_1, arg1);
  
     memset(rt_copy_buffer_1, 0x00, sizeof(rt_copy_buffer_1));
+    ret = 0;
     break;
 
 	
