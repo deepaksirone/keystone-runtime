@@ -208,7 +208,7 @@ void handle_syscall(struct encl_ctx* ctx)
     memset(rt_copy_buffer_1, 0x00, sizeof(rt_copy_buffer_1));
 
     break;
-  case (RUNTIME_SYSCALL_GET_RANDOM):
+  case (RUNTIME_SYSCALL_GET_RANDOM):;
     if (arg1 > sizeof(rt_copy_buffer_1)) {
 	  ret = -1;
 	  break;
@@ -233,6 +233,10 @@ void handle_syscall(struct encl_ctx* ctx)
  
     memset(rt_copy_buffer_1, 0x00, sizeof(rt_copy_buffer_1));
     ret = 0;
+    break;
+  case (RUNTIME_SYSCALL_GET_RANDOM_WORD):
+    ret = sbi_random();
+    printf("[random_word] called\n");
     break;
 
 	
