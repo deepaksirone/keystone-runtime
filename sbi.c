@@ -52,7 +52,10 @@ sbi_exit_enclave(uint64_t retval) {
 
 uintptr_t
 sbi_random() {
-  return SBI_CALL_0(SBI_EXT_EXPERIMENTAL_KEYSTONE_ENCLAVE, SBI_SM_RANDOM);
+  uintptr_t ret = SBI_CALL_0(SBI_EXT_EXPERIMENTAL_KEYSTONE_ENCLAVE, SBI_SM_RANDOM);
+  register uintptr_t a1 __asm__("a1");
+  return a1;
+
 }
 
 uintptr_t
