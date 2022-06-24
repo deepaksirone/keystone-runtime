@@ -9,6 +9,7 @@
 #include <time.h>
 
 #include "freemem.h"
+#include "vm_defs.h"
 #include "mm.h"
 #include "rt_util.h"
 #include "syscall.h"
@@ -164,7 +165,7 @@ uintptr_t syscall_mmap(void *addr, size_t length, int prot, int flags,
 uintptr_t syscall_mprotect(void *addr, size_t len, unsigned int prot) {
 	// Implement mprotect
 	uintptr_t ret = (uintptr_t)((void*)-1);
-	if (!IS_ALIGNED(addr)) {
+	if (!IS_ALIGNED(addr, RISCV_PAGE_BITS)) {
 		print_strace("[runtime] mprotect input not aligned");
 		return ret;
 	}

@@ -13,6 +13,8 @@ void free_page(uintptr_t vpn);
 size_t alloc_pages(uintptr_t vpn, size_t count, int flags);
 void free_pages(uintptr_t vpn, size_t count);
 size_t test_va_range(uintptr_t vpn, size_t count);
+size_t test_va_range_perms(uintptr_t vpn, size_t count);
+uintptr_t set_va_range_perms(uintptr_t vpn, size_t count, int pte_perms);
 
 uintptr_t get_program_break();
 void set_program_break(uintptr_t new_break);
