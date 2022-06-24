@@ -162,7 +162,7 @@ uintptr_t syscall_mmap(void *addr, size_t length, int prot, int flags,
   return ret;
 }
 
-uintptr_t linux_mprotect(void *addr, size_t len, unsigned int prot) {
+uintptr_t linux_mprotect(void *addr, size_t len, int prot) {
 	// Implement mprotect
 	uintptr_t ret = (uintptr_t)((void*)-1);
 	if (!IS_ALIGNED((uintptr_t)addr, RISCV_PAGE_BITS)) {
