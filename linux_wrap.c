@@ -161,8 +161,36 @@ uintptr_t syscall_mmap(void *addr, size_t length, int prot, int flags,
   return ret;
 }
 
+uintptr_t syscall_mprotect(void *addr, size_t len, unsigned int prot) {
+	// Implement mprotect
+	uintptr_t ret = (uintptr_t)((void*)-1);
+	if (!IS_ALIGNED(addr)) {
+		print_strace("[runtime] mprotect input not aligned");
+		return ret;
+	}
 
-uintptr_t syscall_brk(void* addr){
+	int pte_flags = PTE_U | PTE_A;
+	// Set flags
+	// TODO: check the address range if it is owned by the user process
+	// and not the runtime
+	
+  	if(prot & PROT_READ)
+		pte_flags |= PTE_R;
+  	if(prot & PROT_WRITE)
+		pte_flags |= PTE_W | PTE_D;
+  	if(prot & PROT_EXEC)
+    		pte_flags |= PTE_X;
+	
+	int req_pages = vpn(PAGE_UP(len));
+	if (test_va_range_perms(vpn((uintptr_t)addr), req_pages) != req_pages) 
+		return ret;
+
+	ret = set_va_range_perms(addr, req_pages, pte_flags);
+
+	return ret;
+}
+
+uintptr_t syscall_brk(void* addr) {
   // Two possible valid calls to brk we handle:
   // NULL -> give current break
   // ADDR -> give more pages up to ADDR if possible

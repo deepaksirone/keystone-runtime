@@ -242,6 +242,9 @@ void handle_syscall(struct encl_ctx* ctx)
 	
 
 #ifdef LINUX_SYSCALL_WRAPPING
+  case (SYS_mprotect):
+    ret = linux_mprotect((void*)arg0, (size_t)arg1, (int)arg2);
+    break;
   case(SYS_clock_gettime):
     ret = linux_clock_gettime((__clockid_t)arg0, (struct timespec*)arg1);
     break;

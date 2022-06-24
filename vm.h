@@ -49,6 +49,11 @@ static inline pte ptd_create(uintptr_t ppn)
   return pte_create(ppn, PTE_V);
 }
 
+static inline void clear_pte_perms(pte *pt) {
+	*pt = (*pt) & (~PTE_FLAG_MASK);
+	return;
+}
+
 static inline uintptr_t ppn(uintptr_t pa)
 {
   return pa >> RISCV_PAGE_BITS;

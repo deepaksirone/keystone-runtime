@@ -167,6 +167,30 @@ test_va_range(uintptr_t vpn, size_t count){
   return i;
 }
 
+size_t
+test_va_range_perms(uintptr_t vpn, size_t count) {
+	unsigned int i;
+	for(i = 0; i < count; i++) {
+		pte *pte = __walk_internal(root_page_table, (vpn+i) << RISCV_PAGE_BITS, 0);
+		if (!pte || !((*pte) | PTE_V) || !((*pte) | PTE_U))  break;
+	}
+
+	return i;
+}
+
+uintptr_t
+set_va_range_perms(uintptr_t vpn, size_t count, int pte_perms) {
+	unsigned int i;
+	for(i = 0; i < count; i++) {
+		pte *pte = __walk_internal(root_page_table, (vpn + i) << RISCV_PAGE_BITS, 0);
+		if (!pte) return -1;	
+		clear_pte_perms(pte);
+		*pte = (*pte) | (pte_perms & PTE_FLAG_MASK);
+	}
+
+	return 0;
+}
+
 /* get a mapped physical address for a VA */
 uintptr_t
 translate(uintptr_t va)
