@@ -165,7 +165,7 @@ uintptr_t syscall_mmap(void *addr, size_t length, int prot, int flags,
 uintptr_t syscall_mprotect(void *addr, size_t len, unsigned int prot) {
 	// Implement mprotect
 	uintptr_t ret = (uintptr_t)((void*)-1);
-	if (!IS_ALIGNED(addr, RISCV_PAGE_BITS)) {
+	if (!IS_ALIGNED((uintptr_t)addr, RISCV_PAGE_BITS)) {
 		print_strace("[runtime] mprotect input not aligned");
 		return ret;
 	}
@@ -186,7 +186,7 @@ uintptr_t syscall_mprotect(void *addr, size_t len, unsigned int prot) {
 	if (test_va_range_perms(vpn((uintptr_t)addr), req_pages) != req_pages) 
 		return ret;
 
-	ret = set_va_range_perms(addr, req_pages, pte_flags);
+	ret = set_va_range_perms(vpn((uintptr_t)addr), req_pages, pte_flags);
 
 	return ret;
 }
