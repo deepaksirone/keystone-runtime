@@ -17,6 +17,7 @@
 #define RUNTIME_SYSCALL_GET_SEALING_KEY     1004
 #define RUNTIME_SYSCALL_GET_RANDOM          1005
 #define RUNTIME_SYSCALL_GET_RANDOM_WORD     1006
+#define RUNTIME_SYSCALL_GET_UID_RULEID      1007
 #define RUNTIME_SYSCALL_EXIT                1101
 
 void handle_syscall(struct encl_ctx* ctx);

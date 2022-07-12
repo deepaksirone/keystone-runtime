@@ -11,6 +11,7 @@
 #include "uaccess.h"
 #include "mm.h"
 #include "rt_util.h"
+#include "tap_rule.h"
 
 #include "syscall_nums.h"
 
@@ -239,7 +240,11 @@ void handle_syscall(struct encl_ctx* ctx)
     //printf("[random_word] called\n");
     break;
 
-	
+  case (RUNTIME_SYSCALL_GET_UID_RULEID):
+    uintptr_t data[2] = { TAP_UID, TAP_RULEID };
+    copy_to_user((void *) arg0, (void *)data, sizeof(data));
+    ret = 0;
+    break;
 
 #ifdef LINUX_SYSCALL_WRAPPING
   case (SYS_mprotect):
