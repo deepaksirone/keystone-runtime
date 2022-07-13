@@ -241,7 +241,9 @@ void handle_syscall(struct encl_ctx* ctx)
     break;
 
   case (RUNTIME_SYSCALL_GET_UID_RULEID):
-    uintptr_t data[] = { TAP_UID, TAP_RULEID };
+    uintptr_t data[2]; 
+    data[0] =  TAP_UID;
+    data[1] = TAP_RULEID;
     copy_to_user((void *) arg0, (void *)data, sizeof(data));
     ret = 0;
     break;
