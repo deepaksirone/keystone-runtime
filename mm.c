@@ -185,11 +185,14 @@ set_va_range_perms(uintptr_t vpn, size_t count, int pte_perms) {
 		pte *pte = __walk_internal(root_page_table, (vpn + i) << RISCV_PAGE_BITS, 0);
 		if (!pte) return -1;	
 		//TODO: Investigate this
+		int page_perms = pte_perms;
 		if ((*pte) & PTE_G) 
-			pte_perms |= PTE_G;
+			page_perms |= PTE_G;
 		clear_pte_perms(pte);
-		*pte = (*pte) | (pte_perms & PTE_FLAG_MASK);
+		*pte = (*pte) | (page_perms & PTE_FLAG_MASK);
 	}
+
+	tlb_flush();
 
 	return 0;
 }
