@@ -189,7 +189,7 @@ set_va_range_perms(uintptr_t vpn, size_t count, int pte_perms) {
 		if ((*pte) & PTE_G) 
 			page_perms |= PTE_G;
 		clear_pte_perms(pte);
-		*pte = (*pte) | (page_perms & PTE_FLAG_MASK);
+		*pte = (*pte) | PTE_V | (page_perms & PTE_FLAG_MASK);
 	}
 
 	tlb_flush();
