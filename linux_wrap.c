@@ -188,7 +188,7 @@ uintptr_t linux_mprotect(void *addr, size_t len, int prot) {
 
 	ret = set_va_range_perms(vpn((uintptr_t)addr), req_pages, pte_flags);
 	
-	tlb_flush();
+	//tlb_flush();
 	return ret;
 }
 
