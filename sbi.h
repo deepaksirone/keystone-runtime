@@ -35,6 +35,10 @@ sbi_putchar(char c);
 void
 sbi_set_timer(uint64_t stime_value);
 uintptr_t
+sbi_set_time(uintptr_t unix_time);
+uintptr_t
+sbi_get_time();
+uintptr_t
 sbi_stop_enclave(uint64_t request);
 void
 sbi_exit_enclave(uint64_t retval);

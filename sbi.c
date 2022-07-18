@@ -40,8 +40,8 @@ sbi_set_timer(uint64_t stime_value) {
 #endif
 }
 
-void sbi_set_time(uint64_t epoch_time_in_secs) {
-  SBI_CALL_1(SBI_EXT_EXPERIMENTAL_KEYSTONE_ENCLAVE, SBI_SM_SET_UNIX_TIME, epoch_time_in_secs);
+uintptr_t sbi_set_time(uint64_t epoch_time_in_secs) {
+  return SBI_CALL_1(SBI_EXT_EXPERIMENTAL_KEYSTONE_ENCLAVE, SBI_SM_SET_UNIX_TIME, epoch_time_in_secs);
 }
 
 uintptr_t sbi_get_time() {
