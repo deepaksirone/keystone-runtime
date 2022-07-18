@@ -248,6 +248,20 @@ void handle_syscall(struct encl_ctx* ctx)
     break;
   }
 
+  case (RUNTIME_SYSCALL_REGISTER_TIME):
+  {
+    uintptr_t input_time = arg0;
+    printf("[runtime] Calling sbi_set_time with value: %lu\n", input_time);
+    ret = sbi_set_time(input_time);
+    break;
+  }
+
+  case (RUNTIME_SYSCALL_GET_TIME):
+  {
+    ret = sbi_get_time();
+    break;
+  }
+
 #ifdef LINUX_SYSCALL_WRAPPING
   case (SYS_mprotect):
     ret = linux_mprotect((void*)arg0, (size_t)arg1, (int)arg2);

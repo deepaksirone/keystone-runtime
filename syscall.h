@@ -18,6 +18,8 @@
 #define RUNTIME_SYSCALL_GET_RANDOM          1005
 #define RUNTIME_SYSCALL_GET_RANDOM_WORD     1006
 #define RUNTIME_SYSCALL_GET_UID_RULEID      1007
+#define RUNTIME_SYSCALL_REGISTER_TIME       1008
+#define RUNTIME_SYSCALL_GET_TIME            1009
 #define RUNTIME_SYSCALL_EXIT                1101
 
 void handle_syscall(struct encl_ctx* ctx);
