@@ -20,6 +20,7 @@
 #define RUNTIME_SYSCALL_GET_UID_RULEID      1007
 #define RUNTIME_SYSCALL_REGISTER_TIME       1008
 #define RUNTIME_SYSCALL_GET_TIME            1009
+#define RUNTIME_SYSCALL_VERIFY_NONCE        1010
 #define RUNTIME_SYSCALL_EXIT                1101
 
 void handle_syscall(struct encl_ctx* ctx);
