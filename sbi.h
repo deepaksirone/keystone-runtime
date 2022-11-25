@@ -23,6 +23,7 @@
 #define SBI_SM_EXIT_ENCLAVE      3006
 #define SBI_SM_SET_UNIX_TIME     3007
 #define SBI_SM_GET_UNIX_TIME     3008
+#define SBI_SM_VERIFY_NONCE      3009
 #define SBI_SM_CALL_PLUGIN       4000
 
 /* Plugin IDs and Call IDs */
@@ -36,6 +37,8 @@ void
 sbi_set_timer(uint64_t stime_value);
 uintptr_t
 sbi_set_time(uintptr_t unix_time);
+uintptr_t
+sbi_verify_nonce(uintptr_t nonce);
 uintptr_t
 sbi_get_time();
 uintptr_t

@@ -262,6 +262,12 @@ void handle_syscall(struct encl_ctx* ctx)
     break;
   }
 
+  case (RUNTIME_SYSCALL_VERIFY_NONCE):
+  {
+    ret = sbi_verify_nonce(arg0);
+    break;
+  }
+
 #ifdef LINUX_SYSCALL_WRAPPING
   case (SYS_mprotect):
     ret = linux_mprotect((void*)arg0, (size_t)arg1, (int)arg2);
