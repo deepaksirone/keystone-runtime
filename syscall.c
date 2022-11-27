@@ -165,6 +165,8 @@ void handle_syscall(struct encl_ctx* ctx)
 
   ctx->regs.sepc += 4;
 
+  printf("[runtime] Handling syscall: %ld\n", (unsigned long)n); 
+
   switch (n) {
   case(RUNTIME_SYSCALL_EXIT):
     sbi_exit_enclave(arg0);
